@@ -39,51 +39,74 @@
     </style>
 </head>
 <body>
-    <div class="gotcha-text" id="movingText">WHY DID YOU REDEEM</div>
+    <!-- We'll create multiple text elements with JavaScript -->
     
     <script>
-        const text = document.getElementById('movingText');
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta', 'white', 'pink'];
+        const texts = [];
         
-        // Start with simple values
-        let x = 100;
-        let y = 100;
-        let dx = 4;
-        let dy = 4;
-        
-        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta'];
-        let colorIndex = 0;
+        // Create 20 floating text elements
+        for (let i = 0; i < 20; i++) {
+            const textElement = document.createElement('div');
+            textElement.className = 'gotcha-text';
+            textElement.textContent = 'WHY DID YOU REDEEM';
+            textElement.style.position = 'absolute';
+            textElement.style.whiteSpace = 'nowrap';
+            textElement.style.userSelect = 'none';
+            textElement.style.fontWeight = 'bold';
+            textElement.style.fontSize = '4rem';
+            textElement.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(textElement);
+            
+            // Create object to track each text's properties
+            const textObj = {
+                element: textElement,
+                x: Math.random() * (window.innerWidth - 400),
+                y: Math.random() * (window.innerHeight - 100),
+                dx: (Math.random() * 6 + 2) * (Math.random() > 0.5 ? 1 : -1), // Random speed 2-8, random direction
+                dy: (Math.random() * 6 + 2) * (Math.random() > 0.5 ? 1 : -1), // Random speed 2-8, random direction
+                colorIndex: Math.floor(Math.random() * colors.length)
+            };
+            
+            // Set initial position
+            textObj.element.style.left = textObj.x + 'px';
+            textObj.element.style.top = textObj.y + 'px';
+            
+            texts.push(textObj);
+        }
         
         function animate() {
-            // Update position
-            x += dx;
-            y += dy;
-            
-            // Get current window dimensions
-            const maxX = window.innerWidth - 400; // approximate text width
-            const maxY = window.innerHeight - 100; // approximate text height
-            
-            // Bounce off walls
-            if (x <= 0 || x >= maxX) {
-                dx = -dx;
-                colorIndex = (colorIndex + 1) % colors.length;
-                text.style.color = colors[colorIndex];
-            }
-            if (y <= 0 || y >= maxY) {
-                dy = -dy;
-                colorIndex = (colorIndex + 1) % colors.length;
-                text.style.color = colors[colorIndex];
-            }
-            
-            // Apply position
-            text.style.left = x + 'px';
-            text.style.top = y + 'px';
+            texts.forEach(textObj => {
+                // Update position
+                textObj.x += textObj.dx;
+                textObj.y += textObj.dy;
+                
+                // Get current window dimensions
+                const maxX = window.innerWidth - 400; // approximate text width
+                const maxY = window.innerHeight - 100; // approximate text height
+                
+                // Bounce off walls and change color
+                if (textObj.x <= 0 || textObj.x >= maxX) {
+                    textObj.dx = -textObj.dx;
+                    textObj.colorIndex = (textObj.colorIndex + 1) % colors.length;
+                    textObj.element.style.color = colors[textObj.colorIndex];
+                }
+                if (textObj.y <= 0 || textObj.y >= maxY) {
+                    textObj.dy = -textObj.dy;
+                    textObj.colorIndex = (textObj.colorIndex + 1) % colors.length;
+                    textObj.element.style.color = colors[textObj.colorIndex];
+                }
+                
+                // Apply position
+                textObj.element.style.left = textObj.x + 'px';
+                textObj.element.style.top = textObj.y + 'px';
+            });
             
             requestAnimationFrame(animate);
         }
         
-        // Start immediately
-        text.style.left = x + 'px';
-        text.style.top = y + 'px';
+        // Start animation
         animate();
     </script>
 </body>
