@@ -15,17 +15,20 @@
             height: 100%;
             background-image: url('wdyr.png');
             background-repeat: repeat;
-            color: white;
+            color: red;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
         
         .gotcha-text {
             font-size: 4rem;
             font-weight: bold;
             text-align: center;
+            position: absolute;
+            white-space: nowrap;
+            user-select: none;
         }
         
         @media (max-width: 768px) {
@@ -36,6 +39,57 @@
     </style>
 </head>
 <body>
-    <div class="gotcha-text">WHY DID YOU REDEEM</div>
+    <div class="gotcha-text" id="movingText">WHY DID YOU REDEEM</div>
+    
+    <script>
+        const text = document.getElementById('movingText');
+        let x = Math.random() * (window.innerWidth - text.offsetWidth);
+        let y = Math.random() * (window.innerHeight - text.offsetHeight);
+        let dx = 2; // horizontal speed
+        let dy = 2; // vertical speed
+        
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta'];
+        let colorIndex = 0;
+        
+        function animate() {
+            // Update position
+            x += dx;
+            y += dy;
+            
+            // Check for collision with walls and bounce
+            if (x <= 0 || x >= window.innerWidth - text.offsetWidth) {
+                dx = -dx;
+                changeColor();
+            }
+            if (y <= 0 || y >= window.innerHeight - text.offsetHeight) {
+                dy = -dy;
+                changeColor();
+            }
+            
+            // Apply new position
+            text.style.left = x + 'px';
+            text.style.top = y + 'px';
+            
+            requestAnimationFrame(animate);
+        }
+        
+        function changeColor() {
+            colorIndex = (colorIndex + 1) % colors.length;
+            text.style.color = colors[colorIndex];
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (x > window.innerWidth - text.offsetWidth) {
+                x = window.innerWidth - text.offsetWidth;
+            }
+            if (y > window.innerHeight - text.offsetHeight) {
+                y = window.innerHeight - text.offsetHeight;
+            }
+        });
+        
+        // Start animation
+        animate();
+    </script>
 </body>
 </html>
