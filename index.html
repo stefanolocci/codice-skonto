@@ -19,6 +19,16 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            max-width: 120px;
+            height: auto;
+            z-index: 10;
         }
         
         .container {
@@ -124,6 +134,12 @@
                 margin: 20px;
             }
             
+            .logo {
+                max-width: 80px;
+                top: 20px;
+                left: 20px;
+            }
+            
             .title {
                 font-size: 1.8rem;
             }
@@ -144,6 +160,12 @@
                 padding: 30px 20px;
             }
             
+            .logo {
+                max-width: 60px;
+                top: 15px;
+                left: 15px;
+            }
+            
             .title {
                 font-size: 1.5rem;
             }
@@ -156,6 +178,8 @@
     </style>
 </head>
 <body>
+    <img src="skonto-logo.png" alt="Skonto Logo" class="logo">
+    
     <div class="container">
         <h1 class="title">Consegna questo codice omaggio allo stand di Skonto!</h1>
         <p class="subtitle">Una sorpresa ti attende!</p>
