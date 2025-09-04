@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOTCHA</title>
+    <title>Codice Omaggio Skonto</title>
     <style>
         * {
             margin: 0;
@@ -11,103 +11,193 @@
             box-sizing: border-box;
         }
         
-        html, body {
-            height: 100%;
-            background-image: url('wdyr.png');
-            background-repeat: repeat;
-            color: red;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #85D8D4 0%, #1F087B 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        .title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+        
+        .code-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
             overflow: hidden;
         }
         
-        .gotcha-text {
-            font-size: 4rem;
-            font-weight: bold;
-            text-align: center;
+        .code-container::before {
+            content: '';
             position: absolute;
-            white-space: nowrap;
-            user-select: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .code-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .code {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 3px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-top: 40px;
+            font-style: italic;
         }
         
         @media (max-width: 768px) {
-            .gotcha-text {
-                font-size: 2.5rem;
+            .container {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .code {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .copy-btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .code {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- We'll create multiple text elements with JavaScript -->
+    <div class="container">
+        <h1 class="title">Consegna questo codice omaggio allo stand di Skonto!</h1>
+        <p class="subtitle">Una sorpresa ti attende!</p>
+        
+        <div class="code-container">
+            <div class="code-label">Il tuo codice</div>
+            <div class="code" id="promoCode">SKONTOPREMIO25</div>
+        </div>
+        
+        <button class="copy-btn" onclick="copyCode()">Copia Codice</button>
+        
+        <p class="footer-text">Presenta questo codice al nostro stand per ricevere il tuo premio speciale</p>
+    </div>
     
     <script>
-        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta', 'white', 'pink'];
-        const texts = [];
-        
-        // Create 20 floating text elements
-        for (let i = 0; i < 20; i++) {
-            const textElement = document.createElement('div');
-            textElement.className = 'gotcha-text';
-            textElement.textContent = 'WHY DID YOU REDEEM';
-            textElement.style.position = 'absolute';
-            textElement.style.whiteSpace = 'nowrap';
-            textElement.style.userSelect = 'none';
-            textElement.style.fontWeight = 'bold';
-            textElement.style.fontSize = '4rem';
-            textElement.style.color = colors[Math.floor(Math.random() * colors.length)];
+        function copyCode() {
+            const code = document.getElementById('promoCode').textContent;
+            const btn = document.querySelector('.copy-btn');
             
-            document.body.appendChild(textElement);
-            
-            // Create object to track each text's properties
-            const textObj = {
-                element: textElement,
-                x: Math.random() * (window.innerWidth - 400),
-                y: Math.random() * (window.innerHeight - 100),
-                dx: (Math.random() * 6 + 2) * (Math.random() > 0.5 ? 1 : -1), // Random speed 2-8, random direction
-                dy: (Math.random() * 6 + 2) * (Math.random() > 0.5 ? 1 : -1), // Random speed 2-8, random direction
-                colorIndex: Math.floor(Math.random() * colors.length)
-            };
-            
-            // Set initial position
-            textObj.element.style.left = textObj.x + 'px';
-            textObj.element.style.top = textObj.y + 'px';
-            
-            texts.push(textObj);
-        }
-        
-        function animate() {
-            texts.forEach(textObj => {
-                // Update position
-                textObj.x += textObj.dx;
-                textObj.y += textObj.dy;
+            navigator.clipboard.writeText(code).then(function() {
+                btn.textContent = 'Copiato! ✓';
+                btn.style.background = 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)';
                 
-                // Get current window dimensions
-                const maxX = window.innerWidth - 400; // approximate text width
-                const maxY = window.innerHeight - 100; // approximate text height
+                setTimeout(function() {
+                    btn.textContent = 'Copia Codice';
+                    btn.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)';
+                }, 2000);
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
                 
-                // Bounce off walls and change color
-                if (textObj.x <= 0 || textObj.x >= maxX) {
-                    textObj.dx = -textObj.dx;
-                    textObj.colorIndex = (textObj.colorIndex + 1) % colors.length;
-                    textObj.element.style.color = colors[textObj.colorIndex];
-                }
-                if (textObj.y <= 0 || textObj.y >= maxY) {
-                    textObj.dy = -textObj.dy;
-                    textObj.colorIndex = (textObj.colorIndex + 1) % colors.length;
-                    textObj.element.style.color = colors[textObj.colorIndex];
-                }
-                
-                // Apply position
-                textObj.element.style.left = textObj.x + 'px';
-                textObj.element.style.top = textObj.y + 'px';
+                btn.textContent = 'Copiato! ✓';
+                setTimeout(function() {
+                    btn.textContent = 'Copia Codice';
+                }, 2000);
             });
-            
-            requestAnimationFrame(animate);
         }
-        
-        // Start animation
-        animate();
     </script>
 </body>
 </html>
