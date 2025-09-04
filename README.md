@@ -23,7 +23,7 @@ To deploy this website on GitHub Pages:
 5. Choose "main" branch and "/ (root)" folder
 6. Click "Save"
 
-Your website will be available at: `https://yourusername.github.io/repositoryname`
+Your website will be available at: `https://stefanolocci.github.io/codice-skonto/`
 
 ## Files
 
